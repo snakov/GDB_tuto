@@ -1,12 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void
+print(char *str)
+{
+  printf("%s \n", str);
+}
+
+
 int
 main(int argc, char **argv)
 {
-  char *str = "Hello World";
+  char *s = "Hello World";
   
-  printf("%s \n", str);
+  print(s);
   
   return EXIT_SUCCESS;
 }

@@ -5,14 +5,14 @@ TARGETS= bin/1_1_HelloWorld bin/1_2_HelloWorld
 all:  $(TARGETS) 
 
 bin/1_1_HelloWorld: src/1_1_HelloWorld.c
-	$(CC) -c   $< -o $@
+	$(CC)   $< -o $@
 
 bin/1_2_HelloWorld: src/1_1_HelloWorld.c
-	$(CC) -c $(CFLAGS)  $< -o $@
+	$(CC) $(CFLAGS)  $< -o $@
 
 
 bin/% : src/%.c
-	$(CC) -c $(CFLAGS)  $< -o $@
+	$(CC)  $(CFLAGS)  $< -o $@
 
 slides:
 	cd doc && latexmk -pdf main.tex
