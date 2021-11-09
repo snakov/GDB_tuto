@@ -22,7 +22,7 @@
     \begin{itemize}
       {\small
       \item First release in 1986. 
-      \item Supports variouse languages: {\bf C, C++, Fortran, Objective-C} etc.
+      \item Supports various languages: {\bf C, C++, FORTRAN, Objective-C} etc.
       \item Multiple GUI extensions (DDD, kDgb, Nemiver ...).}
     \end{itemize}
   \end{block}
@@ -30,7 +30,7 @@
       {\small
         \begin{itemize}
         \item Allows you to see what is going on `inside' another program while it executes.
-        \item Makes the porgram stop on specific conditions.
+        \item Makes the program stop on specific conditions.
         \item Examine what has happened.
         \item Change things in your program.
         \end{itemize}} 
@@ -40,7 +40,7 @@
 \frame{\frametitle{GDB Basics}
   \begin{block} {Compiling}
     {\small
-      Must be compiled using the flag ``{\bf -g}''. Also it is recomended
+      Must be compiled using the flag ``{\bf -g}''. Also it is recommended
       that the optimization flags are removed and the ``{\bf -Og}'' flag
       is used. \\ To run the program use ``{\bf gdb --args ./exe arg1 arg2}''
       }
@@ -50,10 +50,10 @@
       \begin{itemize}
         {\tiny
         \item {\bf run / r} -- Begins running the program. If the program is already active, it restarts it. 
-        \item {\bf coninue / c} -- Continues the execution of the program. 
-        \item {\bf break / b} -- Sets a breakpint. 
+        \item {\bf continue / c} -- Continues the execution of the program. 
+        \item {\bf break / b} -- Sets a breakpoint. 
         \item {\bf print / p item} -- Prints an item (value of variable, function, structure, class etc).  
-        \item {\bf backtrace / b} -- Shows the calling squence. 
+        \item {\bf backtrace / b} -- Shows the calling sequence. 
         \item {\bf list / l} -- Prints the code.
         \item {\bf frame / f \# } -- Changes to the given frame.
         }
@@ -106,10 +106,10 @@
     \begin{itemize}
     \item Conditional breakpoints: {\bf break if condition | break if not condition}
     \item {\bf watch, rwatch, awatch} commands.
-    \item {\bf printf} is availble.
+    \item {\bf printf} is available.
     \item {\bf call} allows to call functions.
     \item {\bf Defining helpers} in the .gdbinit file. 
-    \item {\bf info breakpoint} prints the breakpoints. {\bf command \# cmdS end}, will execute all cmdS on each breakpooint.
+    \item {\bf info breakpoint} prints the breakpoints. {\bf command \# cmdS end}, will execute all cmdS on each breakpoint.
     \item {\bf set var=value} sets the value of {\bf var}.
     \item {\bf Convenience Functions}, like {\bf \$\_caller\_is}, for example.
     \item {\bf Reverse debugging} with the {\bf record} command. Hint: {\bf set can-use-hw-watchpoints 0}, if planning to use watchpoints in reverse debugging. 

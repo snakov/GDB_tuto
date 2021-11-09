@@ -1,13 +1,13 @@
 CC=gcc
-CFLAGS=-g 
-TARGETS= bin/1_1_HelloWorld bin/1_2_HelloWorld
+CFLAGS=-g -Og 
+TARGETS= bin/HelloWorld bin/HelloWorld_debug 
 
 all:  $(TARGETS) 
 
-bin/1_1_HelloWorld: src/1_1_HelloWorld.c
+bin/HelloWorld: src/HelloWorld.c
 	$(CC)   $< -o $@
 
-bin/1_2_HelloWorld: src/1_1_HelloWorld.c
+bin/HelloWorld_debug: src/HelloWorld.c
 	$(CC) $(CFLAGS)  $< -o $@
 
 
@@ -18,4 +18,4 @@ slides:
 	cd doc && latexmk -pdf main.tex
 
 clean:
-	$(RM) -f $(TARGETS)
+	$(RM) -f $(TARGETS) && cd doc && latexmk -C main.tex
