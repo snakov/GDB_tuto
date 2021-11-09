@@ -1,11 +1,11 @@
-CC=gcc
-CFLAGS=-g -Og 
-TARGETS= bin/HelloWorld bin/HelloWorld_debug 
+CC=mpicc
+CFLAGS=-std=c99 -g -Og -fopenmp -w
+TARGETS= bin/HelloWorld bin/HelloWorld_debug  bin/OpenMP bin/MPI bin/SegFault bin/InfLoop
 
 all:  $(TARGETS) 
 
 bin/HelloWorld: src/HelloWorld.c
-	$(CC)   $< -o $@
+	$(CC)  -std=c99  $< -o $@
 
 bin/HelloWorld_debug: src/HelloWorld.c
 	$(CC) $(CFLAGS)  $< -o $@
@@ -18,4 +18,7 @@ slides:
 	cd doc && latexmk -pdf main.tex
 
 clean:
-	$(RM) -f $(TARGETS) && cd doc && latexmk -C main.tex
+	$(RM) -f $(TARGETS)
+
+clean_slides:
+	 cd doc && latexmk -C main.tex
