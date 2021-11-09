@@ -11,7 +11,7 @@
   CS Departement\\
   Princeton University
 }
-\date[] {Sub-Group meeting, \today}
+\date[] {DECADES subgroup meeting, November 11, 2021}
 
 \begin{document}
 
@@ -42,7 +42,7 @@
     {\small
       Must be compiled using the flag ``{\bf -g}''. Also it is recommended
       that the optimization flags are removed and the ``{\bf -Og}'' flag
-      is add. \\
+      is added. \\
       To run the program use ``{\bf gdb --args ./exe arg1 arg2}'' \\
       {\bf Control + x a} for better view. 
       }
@@ -105,7 +105,9 @@
 
 \frame{\frametitle{GDB Advance}
   \begin{block}{}
+    \small{
     \begin{itemize}
+    \item Hit {\bf Control + x 2}, hit it again!
     \item Conditional breakpoints: {\bf break if condition | break if not condition}
     \item {\bf watch, rwatch, awatch} commands.
     \item {\bf printf} is available.
@@ -115,8 +117,12 @@
     \item {\bf set var variable=value} sets the value of {\bf variable}.
     \item {\bf Convenience Functions}, like {\bf \$\_caller\_is}, for example.
     \item {\bf Reverse debugging} with the {\bf record} command. Hint: {\bf set can-use-hw-watchpoints 0}, if planning to use watchpoints in reverse debugging. 
-    \end{itemize}
+    \end{itemize}}
   \end{block}
+}
+\frame{
+  \centering
+  \huge{Thank you for your attention}
 }
 
 \end{document}
