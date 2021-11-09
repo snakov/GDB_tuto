@@ -17,4 +17,104 @@
 
 \frame{\titlepage}
 
+\frame{\frametitle{GDB: The GNU Project Debugger}
+  \begin{block}{GDB overview}
+    \begin{itemize}
+      {\small
+      \item First release in 1986. 
+      \item Supports variouse languages: {\bf C, C++, Fortran, Objective-C, Python} (with an extention) etc.
+      \item Multiple GUI extensions (DDD, kDgb, Nemiver ...).}
+    \end{itemize}
+  \end{block}
+  \uncover<2->{\begin{block}{GDB's Purpose}
+      {\small
+        \begin{itemize}
+        \item Allows you to see what is going on `inside' another program while it executes.
+        \item Makes the porgram stop on specific conditions.
+        \item Examine what has happened.
+        \item Change things in your program.
+        \end{itemize}} 
+  \end{block}}
+}
+
+\frame{\frametitle{GDB Basics}
+  \begin{block} {Compiling}
+    {\small
+      Must be compiled using the flag ``{\bf -g}''. Also it is recomended
+      that the optimization flags are removed and the ``{\bf -Og}'' flag
+      is used. \\ To run the program use ``{\bf gdb --args ./exe arg1 arg2}''
+      }
+  \end{block}
+  \vfill
+  \uncover<2->{\begin{block}{Basic commands}
+      \begin{itemize}
+        {\tiny
+        \item {\bf run / r} -- Begins running the program. If the program is already active, it restarts it. 
+        \item {\bf coninue / c} -- Continues the execution of the program. 
+        \item {\bf break / b} -- Sets a breakpint. 
+        \item {\bf print / p item} -- Prints an item (value of variable, function, structure, class etc).  
+        \item {\bf backtrace / b} -- Shows the calling squence. 
+        \item {\bf list / l} -- Prints the code.
+        \item {\bf frame / f \# } -- Changes to the given frame.
+        }
+      \end{itemize}
+  \end{block}}
+}
+
+\frame{\frametitle{Parallel Debugging}
+  \begin{block}{Multi-Threading}
+    \small{
+    \begin{itemize}
+    \item {\bf info threads / t} -- Prints information for each thread.
+    \item {\bf thread / t \# } -- Switches to the thread. 
+    \item {\bf thread apply all ``cmd'' / t a a ``cmd''} --  Applies ``cmd'' to all threads (usually {\bf backtrace} is used).
+    \end{itemize}
+    }
+    \end{block}
+  \vfill
+  \uncover<2->{
+    \begin{block}{Distributed memory}
+      \centering
+      \only<2>{{\bf MPI} is {\bf SIMD} parallel model.\\}
+      \only<3->{{\bf MPI} is {\bf MIMD} parallel model.\\}
+      \vfill
+      \small{
+      \only<4>{mpirun -np 2 ./exe1 : -np 2 ./exe2 : -np 2 ./exe3} 
+      \uncover<5>{mpirun -np 1 {\bf gdb ./exe1} : -np 1 ./exe1 : -np 2 ./exe2 : -np 2 ./exe3}\\}
+      \uncover<6>{Alternatively, open one xterm per process: \$: mpirun -np 4 {\bf xterm -e gdb ./exe1}}
+    \end{block}
+  }
+}
+
+\frame{\frametitle{GDB Advance}
+  \begin{block}{Launching gdb}
+`    \begin{itemize}
+    \item Execute {\bf gdb}, and then specify the exec file using the command {\bf file}.
+    \item Arguments can be supplied to the {\bf run} command.
+    \item By setting {\bf ulimit -c unlimited},  and then use {\bf gdb core\_file exec\_file}. 
+    \item Attaching to a running process: {\bf gdb attach \$pid}. 
+    \item {\bf vgdb}: Valgrind + GDB. Launch valgrind with the
+      following arguments: {\bf --vgdb=yes --vgdb-error=0}. \\ Then
+      launch gdb with the executable and copy paste the proposed
+      commands in the first terminal.
+    \end{itemize}
+  \end{block}
+}
+
+\frame{\frametitle{GDB Advance}
+  \begin{block}{}
+    \begin{itemize}
+    \item Conditional breakpoints: {\bf break if condition | break if not condition}
+    \item {\bf watch, rwatch, awatch} commands.
+    \item {\bf printf} is availble.
+    \item {\bf call} allows to call functions.
+    \item {\bf Defining helpers} in the .gdbinit file. 
+    \item {\bf info breakpoint} prints the breakpoints. {\bf command \# cmdS end}, will execute all cmdS on each breakpooint.
+    \item {\bf set var=value} sets the value of {\bf var}.
+    \item {\bf Convenience Functions}, like {\bf \$\_caller\_is}, for example.
+    \item {\bf Reverse debugging} with the {\bf record} command. Hint: {\bf set can-use-hw-watchpoints 0}, if planning to use watchpoints in reverse debugging. 
+    \end{itemize}
+  \end{block}
+}
+
 \end{document}
