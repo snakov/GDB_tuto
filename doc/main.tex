@@ -81,7 +81,7 @@
       \small{
       \only<4>{mpirun -np 2 ./exe1 : -np 2 ./exe2 : -np 2 ./exe3} 
       \uncover<5>{mpirun -np 1 {\bf gdb ./exe1} : -np 1 ./exe1 : -np 2 ./exe2 : -np 2 ./exe3}\\}
-      \uncover<6>{Alternatively, open one xterm per process: \$: mpirun -np 4 {\bf xterm -e gdb ./exe1}}
+      \uncover<6>{Alternatively, open one xterm per process: \\ mpirun -np 4 {\bf xterm -e gdb ./exe}}
     \end{block}
   }
 }
