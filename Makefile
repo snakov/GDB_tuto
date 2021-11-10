@@ -1,8 +1,17 @@
+ifeq ("","$(shell which mpicc)")
+$(warning "mpicc not found, the MPI test wond be compiled")
+CC=gcc
+else
+TARGETS = bin/MPI
 CC=mpicc
+endif
+
 CFLAGS=-std=c99 -g -Og -fopenmp -w
-TARGETS= bin/HelloWorld bin/HelloWorld_debug  bin/OpenMP bin/MPI bin/SegFault bin/InfLoop
+
+TARGETS += bin/HelloWorld bin/HelloWorld_debug  bin/OpenMP bin/SegFault bin/InfLoop
 
 all:  $(TARGETS) 
+
 
 bin/HelloWorld: src/HelloWorld.c
 	$(CC)  -std=c99  $< -o $@
