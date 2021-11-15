@@ -1,4 +1,6 @@
 \documentclass{beamer}
+\usepackage{listings}
+
 \usetheme{Darmstadt}
 
 \title[A GDB Tutorial] {A GDB Tutorial}
@@ -88,17 +90,42 @@
   }
 }
 
-\frame{\frametitle{GDB Advance}
-  \begin{block}{Launching gdb}
+\frame{\frametitle{Launching gdb}
+  \begin{block}{}
 `    \begin{itemize}
     \item Execute {\bf gdb}, and then specify the exec file using the command {\bf file}.
     \item Arguments can be supplied to the {\bf run} command.
     \item By setting {\bf ulimit -c unlimited},  and then use {\bf gdb exec\_file core\_file}. 
     \item Attaching to a running process: {\bf gdb attach \$pid}. 
-    \item {\bf vgdb}: Valgrind + GDB. Launch valgrind with the
-      following arguments: {\bf --vgdb=yes --vgdb-error=0}. \\ Then
-      launch gdb with the executable and copy paste the proposed
-      commands in the first terminal.
+    \item {\bf vgdb}: Valgrind + GDB. In the first terminal, launch
+      valgrind and add these arguments: {\bf --vgdb=yes
+        --vgdb-error=0}. \\ Then open an other terminal, start gdb and
+      copy paste the proposed commands in the first terminal.
+    \end{itemize}
+  \end{block}
+}
+
+\frame(\frametitle{Improve gdb's output} 
+  \begin{block}{}
+    \begin{itemize}
+    \item Hit {\bf Control + x 2}, hit it again! And AGAIN!! 
+    \item {\bf printf} is available.
+    \item User define helpers in the {\bf .gdbinit} file. \\ First add
+      this line to your global gdbinit (~/.initgdb):\\ set auto-load
+      safe-path # disable safe checks \\ add-auto-load-safe-path
+      /path/to/your/working/gdbinit # a bit safer
+      \begin{lstlisting}[language=Bash]
+        define my_print
+        \t set language c  \# tell gdb what language to use
+        \t printf ``Here is the first arg: <\%s>'', \$arg0
+        \t set \$n = 0  # define local variable
+        \t while \$n \!= \$arg1
+        \t\t printf ``Second argumnet is not \%d\textbackslash n'', $n
+        \t\t \$n = \$n +1
+        \t end
+        \t printf ``Last argument is \%d\textbackslash n'', \$arg1
+        end 
+      \end{listing}
     \end{itemize}
   \end{block}
 }
@@ -107,12 +134,9 @@
   \begin{block}{}
     \small{
     \begin{itemize}
-    \item Hit {\bf Control + x 2}, hit it again!
     \item Conditional breakpoints: {\bf break if condition | break if not condition}
     \item {\bf watch, rwatch, awatch} commands.
-    \item {\bf printf} is available.
     \item {\bf call} allows to call functions.
-    \item {\bf Defining helpers} in the .gdbinit file. 
     \item {\bf info breakpoint} prints the breakpoints. {\bf command \# cmdS end}, will execute all cmdS on each breakpoint.
     \item {\bf set var variable=value} sets the value of {\bf variable}.
     \item {\bf Convenience Functions}, like {\bf \$\_caller\_is}, for example.
