@@ -105,45 +105,88 @@
   \end{block}
 }
 
-\frame(\frametitle{Improve gdb's output} 
+\begin{frame}[fragile]
+  \frametitle{Improve gdb's output}
   \begin{block}{}
-    \begin{itemize}
-    \item Hit {\bf Control + x 2}, hit it again! And AGAIN!! 
-    \item {\bf printf} is available.
-    \item User define helpers in the {\bf .gdbinit} file. \\ First add
-      this line to your global gdbinit (~/.initgdb):\\ set auto-load
-      safe-path # disable safe checks \\ add-auto-load-safe-path
-      /path/to/your/working/gdbinit # a bit safer
-      \begin{lstlisting}[language=Bash]
-        define my_print
-        \t set language c  \# tell gdb what language to use
-        \t printf ``Here is the first arg: <\%s>'', \$arg0
-        \t set \$n = 0  # define local variable
-        \t while \$n \!= \$arg1
-        \t\t printf ``Second argumnet is not \%d\textbackslash n'', $n
-        \t\t \$n = \$n +1
-        \t end
-        \t printf ``Last argument is \%d\textbackslash n'', \$arg1
-        end 
-      \end{listing}
+    \begin{itemize} 
+      \item Hit {\bf Control + x 2}, hit it again! And AGAIN!! 
+      \item {\bf printf} is available.
+      \item User define helpers in the {\bf .gdbinit} file.  First add
+        one of the next two lines to your global gdbinit
+        ($\sim$/.initgdb):\\
+        \small{
+          \begin{lstlisting}
+# disable safe checks
+1) set auto-load safe-path /
+
+# a bit safer
+2) add-auto-load-safe-path  /path/to/your/working/gdbinit 
+        \end{lstlisting}}
     \end{itemize}
   \end{block}
-}
+\end{frame}
 
-\frame{\frametitle{GDB Advance}
+\begin{frame}[fragile]
+  \frametitle{A local .gdbinit file example}
+  \small{
+  \begin{lstlisting}
+# break on main automatically
+break main
+
+#define a function
+define my_print
+  set language c # tell gdb what language to use
+  printf "Here comes the first arg: <%d> \n" , $arg0
+  set $n = 0
+  while $n != $arg1
+    printf "Second argument is not %d \n", $n
+    set $n = $n + 1
+  end
+  printf "Second argument is  %d !!!!\n", $arg1
+end
+  \end{lstlisting}
+}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{GDB advanced breaks}
+  \begin{block}{}
+    \begin{itemize}
+    \item Conditional breakpoints: {\bf break if condition | break if not condition}
+    \item {\bf watch, rwatch, awatch} watch the memory!
+    \item {\bf info breakpoint} prints the breakpoints (including wathe).
+    \item {\bf command \# instruction 1\; instruction2\; end}, will execute all instruction each time that breakpoint is accessed.
+    \end{itemize}
+    \begin{lstlisting}
+      command 2
+      # suppresses the normal output
+      silent 
+      print var
+      next
+      print var2
+      end
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+
+
+\frame{\frametitle{Other GDB's advance toys}
   \begin{block}{}
     \small{
     \begin{itemize}
-    \item Conditional breakpoints: {\bf break if condition | break if not condition}
-    \item {\bf watch, rwatch, awatch} commands.
-    \item {\bf call} allows to call functions.
-    \item {\bf info breakpoint} prints the breakpoints. {\bf command \# cmdS end}, will execute all cmdS on each breakpoint.
+    \item {\bf call} allows to call functions/methods defined in the code.
     \item {\bf set var variable=value} sets the value of {\bf variable}.
-    \item {\bf Convenience Functions}, like {\bf \$\_caller\_is}, for example.
-    \item {\bf Reverse debugging} with the {\bf record} command. Hint: {\bf set can-use-hw-watchpoints 0}, if planning to use watchpoints in reverse debugging. 
+    \item {\bf Convenience Functions}, (help function), like {\bf \$\_caller\_is}, for example.
+    \item {\bf Reverse debugging} Yes it exists. Here is how to use it:
+      \begin{itemize}
+      \item Break on main, and then type {\bf record}. All following instructions are recorded.
+      \item When you hit a breakpoint or the program crashes, use {\bf reverse-continue, reverse-next } etc. 
+      \item  Hint: {\bf set can-use-hw-watchpoints 0}, if planning to use watchpoints in reverse debugging. 
+    \end{itemize}
     \end{itemize}}
   \end{block}
 }
+
 \frame{
   \centering
   \huge{Thank you for your attention}
